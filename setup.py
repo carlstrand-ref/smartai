@@ -14,15 +14,19 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'ipython'
-        'tqdm'
-        'pandas'
-        'pyarrow'
-        'torch'
+        'ipython',
+        'tqdm',
+        'numpy',
+        'matplotlib',
+        'pandas',
+        'pyarrow',
+        'torch',
+        'torchvision',
         'nltk'
     ],
     extras_require={
         'tests': [
+            'tox',
             'pytest',
             'pytest-pep8',
             'pytest-xdist',
