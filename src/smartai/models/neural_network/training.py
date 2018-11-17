@@ -11,9 +11,9 @@ from ...utils import timelogger
 @timelogger
 def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dataloader=None, num_epochs=6):
     """Train model on a dataloader
-    :param model: A PyTorch Neural Network model (subclass of `nn.Module`)
+    :param model: A PyTorch Neural Network model (subclass of `neural_network.Module`)
     :param dataloader: DataLoader for train set
-    :param criterion: a PyTorch Loss Class, e.g. `torch.nn.modules.loss.CrossEntropyLoss`
+    :param criterion: a PyTorch Loss Class, e.g. `torch.neural_network.modules.loss.CrossEntropyLoss`
     :param optimizer: a PyTorch optimizer to update the model parameters
     :param metrics: a sequence of functions to calculate the metrics of the model, e.g. accuracy
     :param valid_dataloader: DataLoader for validation set
@@ -44,7 +44,8 @@ def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dat
     best_model_weights = copy.deepcopy(model.state_dict())
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print("Training the model on: ", device)
+    print("Training the model on:", device)
+    print("=" * 99)
     model = model.to(device)
     for epoch in range(num_epochs):
         # Each epoch has a training and validation phase if valid_dataloader is not None
@@ -65,12 +66,16 @@ def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dat
 
             batch_num = len(dataloaders[phase].batch_sampler)
             batch_size = dataloaders[phase].batch_size
-            tqdm = auto_tqdm("batches")
-            pbar = tqdm(enumerate(dataloaders[phase]), total=batch_num)
-            pbar.set_description('Epoch {}/{}'.format(epoch + 1, num_epochs))
+
+            if phase == 'train':
+                tqdm = auto_tqdm("batches")
+                dataloader = tqdm(dataloaders[phase], total=batch_num)
+                dataloader.set_description('Epoch {}/{}'.format(epoch + 1, num_epochs))
+            else:
+                dataloader = dataloaders[phase]
 
             # Iterate over data.
-            for inputs, targets in pbar:
+            for inputs, targets in dataloader:
                 inputs = inputs.to(device)
                 targets = targets.to(device)
 
@@ -90,7 +95,6 @@ def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dat
                 running_loss += loss.item() * inputs.size(0)
 
             epoch_loss = running_loss / (batch_num * batch_size)
-            print('{} Loss: {:.36}'.format(phase, epoch_loss))
             loss_key = 'loss' if phase == 'train' else 'val_loss'
             train_history.history[loss_key].append(epoch_loss)
 
@@ -99,10 +103,18 @@ def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dat
                 best_loss = epoch_loss
                 best_model_weights = copy.deepcopy(model.state_dict())
 
+        # print loss
+        lastest_train_loss = train_history.history['loss'][-1]
+        print('Train loss: {:.6f}'.format(lastest_train_loss), end='\t')
+        if valid_dataloader:
+            lastest_val_loss = train_history.history['val_loss'][-1]
+            print('Validation loss: {:.6f}'.format(lastest_val_loss))
+
     assert train_history.epoches == len(train_history.history['loss'])
     model.train_history = train_history
     model.best_loss = best_loss
-    print('Best validation loss: {:6f}'.format(best_loss))
+    print("=" * 99)
+    if valid_dataloader: print('Best validation loss: {:6f}'.format(best_loss))
 
     # load best model weights and return the model
     model.load_state_dict(best_model_weights)
