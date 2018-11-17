@@ -18,9 +18,9 @@ def timelogger(func):
     @wraps(func)
     def wrapper(*args, **kwds):
         ctime = datetime.now()
-        print_now(prefix='start time:')
+        print_now(prefix='Start time:')
         result = func(*args, **kwds)
-        print_now(prefix='end time:')
+        print_now(prefix='End time:')
         used_time = datetime.now() - ctime
         print('Time used:', format_time_delta(used_time))
         return result
