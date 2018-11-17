@@ -1,7 +1,8 @@
-import os, pickle
+import os
+import pickle
 from torch.utils.data import DataLoader
 import torchvision
-from . import DATASET_ROOT_DIR
+from .. import DATASET_ROOT_DIR
 
 
 def unpickle_cifar_meta(meta_file):
@@ -42,6 +43,7 @@ def cifar100_fine_to_coarse():
             assert label not in fine_to_coarse
             fine_to_coarse[label] = coarse_label
     return fine_to_coarse
+
 
 cifar100_classes_fine_to_coarse = cifar100_fine_to_coarse()
 
