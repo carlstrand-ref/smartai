@@ -10,7 +10,9 @@ _torch_optimizers = {
     if c[0].isupper() and c != 'Optimizer'
 }
 locals().update(_torch_optimizers)
-print("PyTorch has {} builtin optimizer Classes.".format(len(_torch_optimizers)))
 
 _Torch_Optimizer = namedtuple('Torch_Optimizer', _torch_optimizers.keys())
 TORCH_OPTIMIZER = _Torch_Optimizer(**_torch_optimizers)
+
+if __name__ == "__main__":
+    print("PyTorch has {} builtin optimizer Classes.".format(len(_torch_optimizers)))
