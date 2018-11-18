@@ -9,9 +9,7 @@ os.makedirs(DATASET_ROOT_DIR, exist_ok=True)
 from . import datasets
 from . import models
 from . import utils
-from .models import optimizers
-from .models import losses
-from .models import metrics
+
 
 __version__ = '0.0.1.dev'
 
