@@ -1,4 +1,4 @@
-from . import neural_network
+from . import nn
 from . import losses
 from . import metrics
 from . import optimizers

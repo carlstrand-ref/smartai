@@ -11,9 +11,9 @@ from ...utils import timelogger
 @timelogger
 def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dataloader=None, num_epochs=6):
     """Train model on a dataloader
-    :param model: A PyTorch Neural Network model (subclass of `neural_network.Module`)
+    :param model: A PyTorch Neural Network model (subclass of `nn.Module`)
     :param dataloader: DataLoader for train set
-    :param criterion: a PyTorch Loss Class, e.g. `torch.neural_network.modules.loss.CrossEntropyLoss`
+    :param criterion: a PyTorch Loss Class, e.g. `torch.nn.modules.loss.CrossEntropyLoss`
     :param optimizer: a PyTorch optimizer to update the model parameters
     :param metrics: a sequence of functions to calculate the metrics of the model, e.g. accuracy
     :param valid_dataloader: DataLoader for validation set
