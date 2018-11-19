@@ -1,7 +1,35 @@
 """Package setup script
 """
-
+import sys
 from setuptools import setup
+
+requirements = [
+    'ipython',
+    'tqdm',
+    'numpy',
+    'pillow',
+    'matplotlib',
+    'seaborn',
+    'pandas',
+    'pyarrow',
+    'torch',
+    'torchvision',
+    'nltk'
+]
+
+if sys.version_info < (3, 7):
+    requirements.append('dataclasses')
+
+
+test_requirements = [
+    'tox',
+    'pytest',
+    'pytest-pep8',
+    'pytest-xdist',
+    'pytest-cov',
+    'pytest-timeout'
+]
+
 
 setup(
     name='smartai',
@@ -13,27 +41,8 @@ setup(
     packages=['src/smartai'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-        'ipython',
-        'tqdm',
-        'numpy',
-        'pillow',
-        'matplotlib',
-        'seaborn',
-        'pandas',
-        'pyarrow',
-        'torch',
-        'torchvision',
-        'nltk'
-    ],
+    install_requires=requirements,
     extras_require={
-        'tests': [
-            'tox',
-            'pytest',
-            'pytest-pep8',
-            'pytest-xdist',
-            'pytest-cov',
-            'pytest-timeout'
-        ]
+        'tests': test_requirements
     }
 )
