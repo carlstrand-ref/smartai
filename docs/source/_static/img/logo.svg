@@ -1,0 +1,17 @@
+<svg width="200" height="50" xmlns="http://www.w3.org/2000/svg">
+ <style type="text/css">.st0{fill:#EE4C2C;}
+	.st1{fill:#252525;}</style>
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="52" width="202" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1">
+   <path id="svg_2" d="m31.516343,15.075408l-2.1,2.1c3.5,3.5 3.5,9.2 0,12.7c-3.5,3.5 -9.2,3.5 -12.7,0c-3.5,-3.5 -3.5,-9.2 0,-12.7l0,0l5.6,-5.6l0.7,-0.8l0,0l0,-4.2l-8.5,8.5c-4.7,4.7 -4.7,12.2 0,16.9s12.2,4.7 16.9,0c4.8,-4.7 4.8,-12.3 0.1,-16.9z" class="st0"/>
+   <circle id="svg_3" r="1.6" cy="12.875408" cx="27.316343" class="st0"/>
+  </g>
+  <text font-style="normal" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Palatino Linotype', 'Book Antiqua', Palatino, serif" font-size="19" id="svg_13" y="28.900667" x="51.961229" stroke-width="0" stroke="#000" fill="#000000">Smart Learner</text>
+ </g>
+</svg>
