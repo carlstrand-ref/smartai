@@ -163,6 +163,7 @@ def _plot_train_history(epochs, history, has_validation, max_cols, subplot_width
                 markersize=2, color='g'
             )
         axs[i].set_title('Train History: {}'.format(metric_str))
+        axs[i].set_xticks(epochs)
         axs[i].set_xlabel('Epochs')
         axs[i].set_ylabel(metric_str)
         axs[i].legend()
@@ -190,7 +191,7 @@ def plot_keras_train_history(keras_train_history, max_cols=2, subplot_width=6, s
 
 
 def plot_pytorch_train_history(pytorch_train_history, max_cols=2, subplot_width=6, subplot_height=5):
-    epochs = range(pytorch_train_history.epoches)
+    epochs = range(1, pytorch_train_history.epoches + 1)
     history = pytorch_train_history.history
     has_validation = pytorch_train_history.has_validation
     _plot_train_history(
