@@ -4,6 +4,7 @@ import copy
 from collections import defaultdict
 import numpy as np
 import torch
+from ..metrics import METRICS
 from ...utils import auto_tqdm
 from ...utils import timelogger
 
@@ -38,8 +39,17 @@ def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dat
     else:
         best_loss = np.Inf
 
+    # prepare the metrics to be used
     if metrics is not None:
-        pass
+        metrics_dict = {}
+        for metric in metrics:
+            if isinstance(metric, str):
+                assert metric in METRICS, f"{metric} is not a built-in metric!"
+                metrics_dict[metric] = METRICS[metric]
+            elif callable(metric):
+                metrics_dict[metric.__name__] = metric
+            else:
+                raise ValueError("element of metrics can only be str or callable.")
 
     best_model_weights = copy.deepcopy(model.state_dict())
 
