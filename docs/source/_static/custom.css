@@ -155,7 +155,7 @@ ul, ol, dl {
 }
 
 div.nboutput div[class*=highlight] pre {
-    line-height: 1.9;
+    line-height: 1.9 !important;
 }
 
 /*.output_area.docutils.container img {
