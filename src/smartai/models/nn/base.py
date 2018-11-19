@@ -1,11 +1,38 @@
 """Base Classes and Functions for Neural Network
 """
-
 from collections import OrderedDict
-
 import numpy as np
 import torch
 import torch.nn as nn
+from .training import train_model
+from ...utils.plotting import plot_pytorch_train_history
+
+
+class Model(nn.Module):
+    def __init__(self, criterion=None, optimizer=None, metrics=None):
+        super().__init__()
+        self.criterion = criterion
+        self.optimizer = optimizer
+        self.metrics = metrics
+
+
+    def fit(self, dataloader, criterion=None, optimizer=None, metrics=None, valid_dataloader=None, num_epoches=2):
+        criterion = criterion or self.criterion
+        optimizer = optimizer or self.optimizer
+        metrics = metrics or self.metrics
+        assert criterion is not None
+        assert optimizer is not None
+        train_model(self, dataloader, criterion, optimizer, metrics, valid_dataloader, num_epoches)
+
+
+    def plot_train_history(self, **kwargs):
+        assert hasattr(self, 'train_history'), "Please train your model first."
+        plot_pytorch_train_history(self.train_history, **kwargs)
+
+
+    def summary(self, input_size, batch_size=-1, device="cpu"):
+        model_summary(self, input_size, batch_size, device)
+
 
 
 def model_summary(model, input_size, batch_size=-1, device="cpu"):
