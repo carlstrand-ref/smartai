@@ -16,3 +16,9 @@ def categorical_accuracy(y_true, y_pred):
     _check_lenght(y_true, y_pred)
     _, preds = torch.max(y_pred, 1)
     return torch.mean((preds == y_true).float())
+
+
+METRICS = {
+    'binary_accuracy': binary_accuracy,
+    'categorical_accuracy': categorical_accuracy
+}
