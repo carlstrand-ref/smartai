@@ -79,6 +79,23 @@ _LABEL_NAMES = {
 
 def load_mnist(root=None, train=True, transform=None, auto_tensor=True, target_transform=None,
                download=True, return_loader=True, batch_size=16, num_workers=0, shuffle=True):
+    """Return a DataLoader for MNIST datasets
+
+    Args:
+
+    - `root`: root dir to cache the downloaded data
+    - `train`: if True, use the train set; if False, use the validation set
+    - `transform`:
+    - `auto_tensor`:
+    - `target_transform`:
+    - `download`:
+    - `return_loader`:
+    - `batch_size`:
+    - `num_workers`:
+    - `shuffle`: Whether shuffle the data, default True
+
+    Return: `DataLoader`
+    """
     return _load_torchvision_dataset(
         'mnist', root=root, train=train, transform=transform,
         auto_tensor=auto_tensor, target_transform=target_transform,
