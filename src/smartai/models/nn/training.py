@@ -79,13 +79,13 @@ def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dat
 
             if phase == 'train':
                 tqdm = auto_tqdm("batches")
-                dataloader = tqdm(dataloaders[phase], total=batch_num)
-                dataloader.set_description('Epoch {}/{}'.format(epoch + 1, num_epochs))
+                pbar = tqdm(dataloaders[phase], total=batch_num)
+                pbar.set_description('Epoch {}/{}'.format(epoch + 1, num_epochs))
             else:
-                dataloader = dataloaders[phase]
+                pbar = dataloaders[phase]
 
             # Iterate over data.
-            for inputs, targets in dataloader:
+            for inputs, targets in pbar:
                 inputs = inputs.to(device)
                 targets = targets.to(device)
 
@@ -128,7 +128,6 @@ def train_model(model, dataloader, criterion, optimizer, metrics=None, valid_dat
 
     # load best model weights and return the model
     model.load_state_dict(best_model_weights)
-    return model
 
 
 class TrainHistory(object):
