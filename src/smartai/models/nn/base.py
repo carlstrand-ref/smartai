@@ -15,6 +15,18 @@ class Model(nn.Module):
         self.optimizer = optimizer
         self.metrics = metrics
 
+    def forward(self, *inputs):
+        r"""Defines the computation performed at every call.
+
+        Should be overridden by all subclasses.
+
+        .. note::
+            Although the recipe for forward pass needs to be defined within
+            this function, one should call the :class:`Module` instance afterwards
+            instead of this since the former takes care of running the
+            registered hooks while the latter silently ignores them.
+        """
+        raise NotImplementedError
 
     def fit(self, dataloader, criterion=None, optimizer=None, metrics=None, valid_dataloader=None, num_epoches=2):
         criterion = criterion or self.criterion
@@ -24,15 +36,12 @@ class Model(nn.Module):
         assert optimizer is not None
         train_model(self, dataloader, criterion, optimizer, metrics, valid_dataloader, num_epoches)
 
-
     def plot_train_history(self, **kwargs):
         assert hasattr(self, 'train_history'), "Please train your model first."
         plot_pytorch_train_history(self.train_history, **kwargs)
 
-
     def summary(self, input_size, batch_size=-1, device="cpu"):
         model_summary(self, input_size, batch_size, device)
-
 
 
 def model_summary(model, input_size, batch_size=-1, device="cpu"):
